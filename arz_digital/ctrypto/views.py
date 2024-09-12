@@ -26,30 +26,17 @@ def get(request ,srccurrency ):
         crypto =srccurrency , 
         price = res['price'] , 
         price_chane_24 = res['price_chane_24'])
-    return HttpResponse (cryptos)
-    
-
-
-class AlertViewSet(viewsets.ModelViewSet):
-    queryset = Alert.objects.all()
-    serializer_class = AlertSerializer
-    permission_classes = [IsAuthenticated]
-
-    def perform_create(self, serializer):
-        alert = serializer.save()
-        check_alerts()
-
-def check_alerts():
     alerts = Alert.objects.all()
     for alert in alerts:
-        if alert.cryptocurrency.price >= alert.target_price:
+        if res['price'] >= alert.target_price:
             send_mail(
                 'Crypto Alert!',
-                f'The price of {alert.cryptocurrency.name} has reached {alert.target_price}.',
+                f'The price of {alert.crypto.name} has reached {alert.target_price}.',
                 settings.DEFAULT_FROM_EMAIL,
                 [alert.user.email],
                 fail_silently=False,
             )
-
+    return JsonResponse(res)
+            
 
 # Create your views here.
