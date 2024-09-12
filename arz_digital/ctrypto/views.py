@@ -1,6 +1,10 @@
 from django.http.response import HttpResponse, JsonResponse, HttpResponseBadRequest
 from rest_framework.generics import ListAPIView 
+<<<<<<< HEAD
 from .models import Crypto , Alert
+=======
+from .models import Crypto ,  Alert
+>>>>>>> 3b14803a26f4d5f9b14f885adc80ac9c930a6de1
 from .serializer import CryptoSerializer
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
@@ -46,5 +50,6 @@ def check_alerts():
                 [alert.user.email],
                 fail_silently=False,
             )
+
 
 # Create your views here.
